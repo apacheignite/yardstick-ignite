@@ -18,9 +18,7 @@
 package org.apache.ignite.yardstick;
 
 import org.apache.ignite.*;
-import org.apache.ignite.cache.eviction.lru.*;
 import org.apache.ignite.configuration.*;
-import org.apache.ignite.internal.processors.cache.*;
 import org.apache.ignite.internal.util.*;
 import org.apache.ignite.spi.communication.tcp.*;
 import org.springframework.beans.*;
@@ -31,9 +29,6 @@ import org.yardstickframework.*;
 
 import java.net.*;
 import java.util.*;
-
-import static org.apache.ignite.internal.processors.cache.CacheDistributionMode.*;
-import static org.apache.ignite.cache.CacheMemoryMode.*;
 
 /**
  * Standalone Ignite node.

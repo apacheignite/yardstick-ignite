@@ -17,7 +17,6 @@
 
 package org.apache.ignite.yardstick.cache.store.jdbc;
 
-import org.apache.ignite.*;
 import org.apache.ignite.yardstick.cache.model.*;
 
 import java.util.*;

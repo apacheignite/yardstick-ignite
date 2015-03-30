@@ -33,7 +33,7 @@
         <yardstick.version>0.7.0</yardstick.version>
         <ignite.version>1.0.0</ignite.version>
 
-        <ignite.staging.repo.version>1019</ignite.staging.repo.version>
+        <ignite.staging.repo.version>1058</ignite.staging.repo.version>
         <ignite.staging.repo>https://repository.apache.org/content/repositories/orgapacheignite-${ignite.staging.repo.version}</ignite.staging.repo>
     </properties>
 
