@@ -99,6 +99,10 @@ public class IgniteBenchmarkArguments {
     @Parameter(names = {"-cn", "--cacheName"}, description = "Cache name")
     private String cacheName;
 
+    /** */
+    @Parameter(names = {"-bch", "--batchSize"}, description = "Batch size")
+    private int batchSize = 1_000;
+
     /**
      * @return Transaction concurrency.
      */
@@ -230,6 +234,13 @@ public class IgniteBenchmarkArguments {
      */
     public String cacheName() {
         return cacheName;
+    }
+
+    /**
+     * @return Batch size.
+     */
+    public int batchSize() {
+        return batchSize;
     }
 
     /**
