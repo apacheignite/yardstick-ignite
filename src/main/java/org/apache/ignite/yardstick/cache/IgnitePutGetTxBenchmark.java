@@ -22,6 +22,8 @@ import org.apache.ignite.yardstick.cache.model.*;
 
 import java.util.*;
 
+import static org.yardstickframework.BenchmarkUtils.println;
+
 /**
  * Ignite benchmark that performs transactional put and get operations.
  */
@@ -39,6 +41,11 @@ public class IgnitePutGetTxBenchmark extends IgniteCacheAbstractBenchmark {
             cache.put(key, new SampleValue(key));
 
             tx.commit();
+        }
+        catch (Exception e){
+            println("Failed put/get entry. Key [" + key + "].");
+
+            e.printStackTrace();
         }
 
         return true;

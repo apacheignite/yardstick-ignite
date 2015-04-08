@@ -21,6 +21,8 @@ import org.apache.ignite.yardstick.cache.model.*;
 
 import java.util.*;
 
+import static org.yardstickframework.BenchmarkUtils.*;
+
 /**
  * Ignite benchmark that performs put and get operations.
  */
@@ -29,12 +31,19 @@ public class IgnitePutGetBenchmark extends IgniteCacheAbstractBenchmark {
     @Override public boolean test(Map<Object, Object> ctx) throws Exception {
         int key = nextRandom(args.range());
 
-        Object val = cache.get(key);
+        try {
+            Object val = cache.get(key);
 
-        if (val != null)
-            key = nextRandom(args.range());
+            if (val != null)
+                key = nextRandom(args.range());
 
-        cache.put(key, new SampleValue(key));
+            cache.put(key, new SampleValue(key));
+        }
+        catch (Exception e){
+            println("Failed put/get entry. Key [" + key + "].");
+
+            e.printStackTrace();
+        }
 
         return true;
     }
