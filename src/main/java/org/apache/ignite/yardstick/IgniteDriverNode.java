@@ -77,6 +77,8 @@ public class IgniteDriverNode extends IgniteNode {
 
             cc.setBackups(args.backups());
 
+            cc.setReadFromBackup(true);
+
             if (args.restTcpPort() != 0) {
                 ConnectorConfiguration ccc = new ConnectorConfiguration();
 
@@ -102,8 +104,6 @@ public class IgniteDriverNode extends IgniteNode {
             cc.setWriteThrough(args.isStoreEnabled());
 
             cc.setWriteBehindEnabled(args.isWriteBehind());
-
-            cc.setReadFromBackup(true);
 
             ccfg = cc;
 
