@@ -24,6 +24,8 @@ import org.apache.ignite.internal.processors.cache.*;
 import org.apache.ignite.spi.communication.tcp.*;
 import org.yardstickframework.*;
 
+import java.util.concurrent.*;
+
 import static org.apache.ignite.internal.processors.cache.CacheDistributionMode.*;
 import static org.apache.ignite.cache.CacheMemoryMode.*;
 
@@ -116,6 +118,7 @@ public class IgniteDriverNode extends IgniteNode {
 
         tc.setDefaultTxConcurrency(args.txConcurrency());
         tc.setDefaultTxIsolation(args.txIsolation());
+        tc.setDefaultTxTimeout(TimeUnit.SECONDS.toMillis(5));
 
         TcpCommunicationSpi commSpi = (TcpCommunicationSpi)c.getCommunicationSpi();
 
