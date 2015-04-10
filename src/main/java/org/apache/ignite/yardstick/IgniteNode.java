@@ -55,24 +55,6 @@ public class IgniteNode implements BenchmarkServer {
 
         assert c != null;
 
-        c.setWarmupClosure(new CI1<IgniteConfiguration>() {
-            @Override public void apply(IgniteConfiguration igniteConfiguration) {
-                BenchmarkUtils.println("Start warmup closure.");
-
-                Map<Integer, SampleValue> values = new HashMap<>();
-
-                ThreadLocalRandom localRandom = ThreadLocalRandom.current();
-
-                for (int i = 0; i < 1_000_000; i++)
-                    values.put(i, new SampleValue(i + localRandom.nextInt(0, 100_000)));
-
-                for (int i = 1_000_000 - 1; i >= 0 ; --i)
-                    System.out.println(values.get(i));
-
-                BenchmarkUtils.println("Stop warmup closure.");
-            }
-        });
-
         // Server node doesn't contains cache configuration. Driver will create dynamic cache.
         c.setCacheConfiguration();
 
