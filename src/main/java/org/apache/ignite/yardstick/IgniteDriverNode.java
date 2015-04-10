@@ -18,6 +18,7 @@
 package org.apache.ignite.yardstick;
 
 import org.apache.ignite.*;
+import org.apache.ignite.cache.affinity.fair.FairAffinityFunction;
 import org.apache.ignite.cache.eviction.lru.*;
 import org.apache.ignite.configuration.*;
 import org.apache.ignite.internal.processors.cache.*;
@@ -71,6 +72,8 @@ public class IgniteDriverNode extends IgniteNode {
                 c.setClientMode(true);
 
             cc.setWriteSynchronizationMode(args.syncMode());
+
+            cc.setAffinity(new FairAffinityFunction());
 
             if (args.orderMode() != null)
                 cc.setAtomicWriteOrderMode(args.orderMode());
