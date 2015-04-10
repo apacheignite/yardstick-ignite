@@ -57,6 +57,8 @@ public class IgniteNode implements BenchmarkServer {
 
         c.setWarmupClosure(new CI1<IgniteConfiguration>() {
             @Override public void apply(IgniteConfiguration igniteConfiguration) {
+                BenchmarkUtils.println("Start warmup closure.");
+
                 List<SampleValue> values = new ArrayList<>();
 
                 ThreadLocalRandom localRandom = ThreadLocalRandom.current();
@@ -67,6 +69,8 @@ public class IgniteNode implements BenchmarkServer {
 
                 for (SampleValue value : values)
                     System.out.println(value);
+
+                BenchmarkUtils.println("Stop warmup closure.");
             }
         });
 
