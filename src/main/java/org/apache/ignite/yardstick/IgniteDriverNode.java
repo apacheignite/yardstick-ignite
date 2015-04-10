@@ -73,8 +73,6 @@ public class IgniteDriverNode extends IgniteNode {
 
             cc.setWriteSynchronizationMode(args.syncMode());
 
-            cc.setAffinity(new FairAffinityFunction());
-
             if (args.orderMode() != null)
                 cc.setAtomicWriteOrderMode(args.orderMode());
 
