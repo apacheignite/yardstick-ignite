@@ -49,7 +49,7 @@
             <artifactId>ignite-spring</artifactId>
             <version>${ignite.version}</version>
             <scope>system</scope>
-            <systemPath>${project.basedir}/ext_libs/ignite-core-1.1.0.jar</systemPath>
+            <systemPath>${project.basedir}/ext_libs/ignite-spring-1.1.0.jar</systemPath>
         </dependency>
 
         <dependency>
@@ -57,7 +57,7 @@
             <artifactId>ignite-aws</artifactId>
             <version>${ignite.version}</version>
             <scope>system</scope>
-            <systemPath>${project.basedir}/ext_libs/ignite-core-1.1.0.jar</systemPath>
+            <systemPath>${project.basedir}/ext_libs/ignite-aws-1.1.0.jar</systemPath>
         </dependency>
 
         <dependency>
