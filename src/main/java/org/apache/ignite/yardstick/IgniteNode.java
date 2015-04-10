@@ -20,7 +20,9 @@ package org.apache.ignite.yardstick;
 import org.apache.ignite.*;
 import org.apache.ignite.configuration.*;
 import org.apache.ignite.internal.util.*;
+import org.apache.ignite.internal.util.typedef.*;
 import org.apache.ignite.spi.communication.tcp.*;
+import org.apache.ignite.yardstick.cache.model.*;
 import org.springframework.beans.*;
 import org.springframework.beans.factory.xml.*;
 import org.springframework.context.support.*;
@@ -29,6 +31,7 @@ import org.yardstickframework.*;
 
 import java.net.*;
 import java.util.*;
+import java.util.concurrent.*;
 
 /**
  * Standalone Ignite node.
@@ -51,6 +54,21 @@ public class IgniteNode implements BenchmarkServer {
         IgniteConfiguration c = loadConfiguration(args.configuration());
 
         assert c != null;
+
+        c.setWarmupClosure(new CI1<IgniteConfiguration>() {
+            @Override public void apply(IgniteConfiguration igniteConfiguration) {
+                List<SampleValue> values = new ArrayList<>();
+
+                ThreadLocalRandom localRandom = ThreadLocalRandom.current();
+
+                for (int i = 0; i < 1_000_000; i++) {
+                    values.add(new SampleValue(i + localRandom.nextInt(0, 100_000)));
+                }
+
+                for (SampleValue value : values)
+                    System.out.println(value);
+            }
+        });
 
         // Server node doesn't contains cache configuration. Driver will create dynamic cache.
         c.setCacheConfiguration();
