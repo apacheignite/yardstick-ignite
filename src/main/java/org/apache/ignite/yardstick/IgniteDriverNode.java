@@ -21,11 +21,9 @@ import org.apache.ignite.*;
 import org.apache.ignite.cache.affinity.fair.FairAffinityFunction;
 import org.apache.ignite.cache.eviction.lru.*;
 import org.apache.ignite.configuration.*;
-import org.apache.ignite.internal.processors.cache.*;
 import org.apache.ignite.spi.communication.tcp.*;
 import org.yardstickframework.*;
 
-import static org.apache.ignite.internal.processors.cache.CacheDistributionMode.*;
 import static org.apache.ignite.cache.CacheMemoryMode.*;
 
 /**
@@ -63,13 +61,7 @@ public class IgniteDriverNode extends IgniteNode {
             if (!cc.getName().equals(args.cacheName()))
                 continue;
 
-            // IgniteNode can not run in CLIENT_ONLY mode,
-            // except the case when it's used inside IgniteAbstractBenchmark.
-            CacheDistributionMode distroMode = args.distributionMode() == CLIENT_ONLY && !clientMode ?
-                PARTITIONED_ONLY : args.distributionMode();
-
-            if (distroMode == CLIENT_ONLY)
-                c.setClientMode(true);
+            cc.setAffinity(new FairAffinityFunction());
 
             cc.setWriteSynchronizationMode(args.syncMode());
 
@@ -97,10 +89,6 @@ public class IgniteDriverNode extends IgniteNode {
                 else
                     cc.setEvictionPolicy(new LruEvictionPolicy(50000));
             }
-
-            cc.setReadThrough(args.isStoreEnabled());
-
-            cc.setWriteThrough(args.isStoreEnabled());
 
             cc.setWriteBehindEnabled(args.isWriteBehind());
 

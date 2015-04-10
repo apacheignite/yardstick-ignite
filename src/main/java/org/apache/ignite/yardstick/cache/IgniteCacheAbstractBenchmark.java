@@ -38,7 +38,7 @@ public abstract class IgniteCacheAbstractBenchmark extends IgniteAbstractBenchma
     /** {@inheritDoc} */
     @Override public void tearDown() throws Exception {
         if (cache != null)
-            ignite().destroyCache(cache.getName());
+            ignite().destroyCache(args.cacheName());
 
         super.tearDown();
     }

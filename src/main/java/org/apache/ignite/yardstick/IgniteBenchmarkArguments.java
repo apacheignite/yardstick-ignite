@@ -44,10 +44,6 @@ public class IgniteBenchmarkArguments {
     private CacheWriteSynchronizationMode syncMode = CacheWriteSynchronizationMode.PRIMARY_SYNC;
 
     /** */
-    @Parameter(names = {"-dm", "--distroMode"}, description = "Distribution mode")
-    private CacheDistributionMode distroMode = CacheDistributionMode.PARTITIONED_ONLY;
-
-    /** */
     @Parameter(names = {"-wom", "--writeOrderMode"}, description = "Write ordering mode")
     private CacheAtomicWriteOrderMode orderMode;
 
@@ -129,13 +125,6 @@ public class IgniteBenchmarkArguments {
      */
     public String restTcpHost() {
         return restTcpHost;
-    }
-
-    /**
-     * @return Distribution.
-     */
-    public CacheDistributionMode distributionMode() {
-        return distroMode;
     }
 
     /**
@@ -247,7 +236,7 @@ public class IgniteBenchmarkArguments {
      * @return Description.
      */
     public String description() {
-        return "-cn=" + cacheName + "-nn=" + nodes + "-b=" + backups + "-sm=" + syncMode + "-dm=" + distroMode +
+        return "-cn=" + cacheName + "-nn=" + nodes + "-b=" + backups + "-sm=" + syncMode +
             (orderMode == null ? "" : "-wom=" + orderMode) + "-txc=" + txConcurrency;
     }
 
