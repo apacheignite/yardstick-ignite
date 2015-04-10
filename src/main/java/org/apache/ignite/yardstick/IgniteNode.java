@@ -59,16 +59,15 @@ public class IgniteNode implements BenchmarkServer {
             @Override public void apply(IgniteConfiguration igniteConfiguration) {
                 BenchmarkUtils.println("Start warmup closure.");
 
-                List<SampleValue> values = new ArrayList<>();
+                Map<Integer, SampleValue> values = new HashMap<>();
 
                 ThreadLocalRandom localRandom = ThreadLocalRandom.current();
 
-                for (int i = 0; i < 1_000_000; i++) {
-                    values.add(new SampleValue(i + localRandom.nextInt(0, 100_000)));
-                }
+                for (int i = 0; i < 1_000_000; i++)
+                    values.put(i, new SampleValue(i + localRandom.nextInt(0, 100_000)));
 
-                for (SampleValue value : values)
-                    System.out.println(value);
+                for (int i = 1_000_000 - 1; i >= 0 ; --i)
+                    System.out.println(values.get(i));
 
                 BenchmarkUtils.println("Stop warmup closure.");
             }
