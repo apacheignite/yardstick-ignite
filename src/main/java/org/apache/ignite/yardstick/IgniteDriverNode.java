@@ -58,8 +58,6 @@ public class IgniteDriverNode extends IgniteNode {
             if (!cc.getName().equals(args.cacheName()))
                 continue;
 
-            c.setClientMode(args.distributionMode() == CLIENT_ONLY);
-
             cc.setWriteSynchronizationMode(args.syncMode());
 
             if (args.orderMode() != null)
