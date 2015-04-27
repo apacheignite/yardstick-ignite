@@ -45,13 +45,13 @@ public abstract class IgniteAbstractBenchmark extends BenchmarkDriverAdapter {
         jcommander(cfg.commandLineArguments(), args, "<ignite-driver>");
 
         if (Ignition.state() != IgniteState.STARTED) {
-            node = new IgniteDriverNode(args.distributionMode() == CLIENT_ONLY);
+            node = new IgniteDriverNode();
 
             node.start(cfg);
         }
         else
             // Support for mixed benchmarks mode.
-            node = new IgniteDriverNode(args.distributionMode() == CLIENT_ONLY, Ignition.ignite());
+            node = new IgniteDriverNode(Ignition.ignite());
 
         waitForNodes();
     }

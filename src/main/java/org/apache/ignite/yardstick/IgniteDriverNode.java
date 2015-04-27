@@ -30,17 +30,12 @@ import static org.apache.ignite.cache.CacheMemoryMode.*;
  * Standalone Ignite node.
  */
 public class IgniteDriverNode extends IgniteNode {
-    /** Client mode. */
-    private boolean clientMode;
-
     /** */
-    public IgniteDriverNode(boolean clientMode) {
-        this.clientMode = clientMode;
+    public IgniteDriverNode() {
     }
 
     /** */
-    public IgniteDriverNode(boolean clientMode, Ignite ignite) {
-        this.clientMode = clientMode;
+    public IgniteDriverNode(Ignite ignite) {
         this.ignite = ignite;
     }
 
@@ -61,8 +56,7 @@ public class IgniteDriverNode extends IgniteNode {
             if (!cc.getName().equals(args.cacheName()))
                 continue;
 
-            if (args.distributionMode() == CLIENT_ONLY)
-                c.setClientMode(true);
+            c.setClientMode(args.distributionMode() == CLIENT_ONLY);
 
             cc.setWriteSynchronizationMode(args.syncMode());
 
