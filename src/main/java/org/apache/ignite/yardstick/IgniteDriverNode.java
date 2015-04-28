@@ -61,7 +61,7 @@ public class IgniteDriverNode extends IgniteNode {
             if (!cc.getName().equals(args.cacheName()))
                 continue;
 
-            cc.setAffinity(new FairAffinityFunction());
+            //cc.setAffinity(new FairAffinityFunction());
 
             cc.setWriteSynchronizationMode(args.syncMode());
 
