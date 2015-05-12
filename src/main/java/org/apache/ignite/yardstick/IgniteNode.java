@@ -21,6 +21,7 @@ import org.apache.ignite.*;
 import org.apache.ignite.configuration.*;
 import org.apache.ignite.internal.util.*;
 import org.apache.ignite.spi.communication.tcp.*;
+import org.apache.ignite.spi.discovery.tcp.*;
 import org.springframework.beans.*;
 import org.springframework.beans.factory.xml.*;
 import org.springframework.context.support.*;
@@ -66,6 +67,13 @@ public class IgniteNode implements BenchmarkServer {
             commSpi = new TcpCommunicationSpi();
 
         c.setCommunicationSpi(commSpi);
+
+        TcpDiscoverySpi spi = (TcpDiscoverySpi)c.getDiscoverySpi();
+
+        commSpi.setSocketWriteTimeout(200);
+        spi.setAckTimeout(50);
+        spi.setMaxAckTimeout(200);
+        spi.setNetworkTimeout(200);
 
         ignite = Ignition.start(c);
     }
