@@ -35,7 +35,7 @@
             <bean class="org.apache.ignite.spi.discovery.tcp.TcpDiscoverySpi">
                 <property name="ipFinder">
                     <bean class="org.apache.ignite.spi.discovery.tcp.ipfinder.s3.TcpDiscoveryS3IpFinder">
-                        <property name="bucketName" value="ignite-benchmark"/>
+                        <property name="bucketName" value="ignite-benchmark-ip"/>
                         <property name="awsCredentials">
                             <bean class="com.amazonaws.auth.BasicAWSCredentials">
                                 <constructor-arg value="${AWS_ACCESS_KEY}"/>
