@@ -18,10 +18,10 @@
 package org.apache.ignite.yardstick;
 
 import org.apache.ignite.*;
-import org.apache.ignite.cache.affinity.fair.*;
 import org.apache.ignite.cache.eviction.lru.*;
 import org.apache.ignite.configuration.*;
 import org.apache.ignite.spi.communication.tcp.*;
+import org.apache.ignite.spi.discovery.tcp.*;
 import org.yardstickframework.*;
 
 import static org.apache.ignite.cache.CacheMemoryMode.*;
@@ -111,7 +111,10 @@ public class IgniteDriverNode extends IgniteNode {
 
         commSpi.setSocketWriteTimeout(150);
 
-        c.setCommunicationSpi(commSpi);
+        TcpDiscoverySpi spi = (TcpDiscoverySpi)c.getDiscoverySpi();
+
+        spi.setAckTimeout(150);
+        spi.setMaxAckTimeout(350);
 
         ignite = Ignition.start(c);
     }
