@@ -31,51 +31,39 @@
 
     <properties>
         <yardstick.version>0.7.0</yardstick.version>
-        <ignite.version>1.1.0</ignite.version>
-        <spring.version>4.1.0.RELEASE</spring.version>
+        <ignite.version>1.1.0-incubating</ignite.version>
     </properties>
+
+    <repositories>
+        <repository>
+            <id>Apache local</id>
+            <url>https://repository.apache.org/content/repositories/orgapacheignite-1100/</url>
+        </repository>
+    </repositories>
 
     <dependencies>
         <dependency>
             <groupId>org.apache.ignite</groupId>
             <artifactId>ignite-core</artifactId>
-            <version>1.1.0</version>
-            <scope>system</scope>
-            <systemPath>${basedir}/ext_libs/ignite-core-1.1.0.jar</systemPath>
+            <version>${ignite.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.apache.ignite</groupId>
             <artifactId>ignite-spring</artifactId>
-            <version>1.1.0</version>
-            <scope>system</scope>
-            <systemPath>${basedir}/ext_libs/ignite-spring-1.1.0.jar</systemPath>
+            <version>${ignite.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.apache.ignite</groupId>
             <artifactId>ignite-aws</artifactId>
-            <version>1.1.0</version>
-            <scope>system</scope>
-            <systemPath>${basedir}/ext_libs/ignite-aws-1.1.0.jar</systemPath>
+            <version>${ignite.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.yardstickframework</groupId>
             <artifactId>yardstick</artifactId>
             <version>${yardstick.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-beans</artifactId>
-            <version>${spring.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context</artifactId>
-            <version>${spring.version}</version>
         </dependency>
 
         <dependency>
