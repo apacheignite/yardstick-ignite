@@ -46,6 +46,8 @@
             <groupId>org.apache.ignite</groupId>
             <artifactId>ignite-core</artifactId>
             <version>${ignite.version}</version>
+            <scope>system</scope>
+            <systemPath>${basedir}/lib_ex/ignite-core-1.0.4.jar</systemPath>
         </dependency>
 
         <dependency>
