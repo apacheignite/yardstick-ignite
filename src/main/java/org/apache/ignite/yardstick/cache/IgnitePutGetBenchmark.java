@@ -40,7 +40,7 @@ public class IgnitePutGetBenchmark extends IgniteCacheAbstractBenchmark {
             cache.put(key, new SampleValue(key));
         }
         catch (Exception e){
-            error("Operation failed.", e);
+            println(cfg, "Operation failed.");
         }
 
         return true;
