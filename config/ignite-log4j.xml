@@ -112,7 +112,7 @@
     </category>
 
     <category name="org.apache.ignite.internal.processors.cache.distributed.dht.atomic.GridDhtAtomicCache">
-        <level value="DEBUG"/>
+        <level value="INFO"/>
     </category>
 
     <category name="org.springframework">
