@@ -61,14 +61,6 @@
         </dependency>
 
         <dependency>
-            <groupId>org.apache.ignite</groupId>
-            <artifactId>ignite-log4j</artifactId>
-            <version>1.0.4-SNAPSHOT</version>
-            <scope>system</scope>
-            <systemPath>${basedir}/lib_ex/ignite-log4j-1.0.4-SNAPSHOT.jar</systemPath>
-        </dependency>
-
-        <dependency>
             <groupId>org.yardstickframework</groupId>
             <artifactId>yardstick</artifactId>
             <version>${yardstick.version}</version>
