@@ -35,13 +35,6 @@
         <spring.version>4.1.0.RELEASE</spring.version>
     </properties>
 
-    <repositories>
-        <repository>
-            <id>Apache local</id>
-            <url>https://repository.apache.org/content/repositories/orgapacheignite-1100/</url>
-        </repository>
-    </repositories>
-
     <dependencies>
         <dependency>
             <groupId>org.apache.ignite</groupId>
