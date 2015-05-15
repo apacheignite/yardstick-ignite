@@ -43,8 +43,6 @@ public class IgnitePutGetBenchmark extends IgniteCacheAbstractBenchmark {
             println(cfg, "Operation failed.");
         }
 
-        println(cfg, "Operation key = " + key);
-
         return true;
     }
 }
