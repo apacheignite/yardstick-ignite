@@ -72,7 +72,6 @@ public class IgniteNode implements BenchmarkServer {
 
         commSpi.setSocketWriteTimeout(200);
         spi.setAckTimeout(50);
-        spi.setMaxAckTimeout(600);
         spi.setNetworkTimeout(5000);
         spi.setHeartbeatFrequency(100);
 
