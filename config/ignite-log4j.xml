@@ -103,6 +103,15 @@
         <level value="DEBUG"/>
     </category>
 
+    <category name="org.apache.ignite.internal.processors.affinity.GridAffinityAssignmentCache">
+        <level value="DEBUG"/>
+    </category>
+
+    <category name="org.apache.ignite.internal.processors.cache.distributed.dht.atomic.GridNearAtomicUpdateFuture">
+        <level value="DEBUG"/>
+    </category>
+
+
     <category name="org.springframework">
         <level value="WARN"/>
     </category>
