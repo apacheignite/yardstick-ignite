@@ -29,9 +29,9 @@ import static org.yardstickframework.BenchmarkUtils.*;
 public class IgnitePutGetBenchmark extends IgniteCacheAbstractBenchmark {
     /** {@inheritDoc} */
     @Override public boolean test(Map<Object, Object> ctx) throws Exception {
-        try {
-            int key = nextRandom(args.range());
+        int key = nextRandom(args.range());
 
+        try {
             Object val = cache.get(key);
 
             if (val != null)
@@ -42,6 +42,8 @@ public class IgnitePutGetBenchmark extends IgniteCacheAbstractBenchmark {
         catch (Exception e){
             println(cfg, "Operation failed.");
         }
+
+        println(cfg, "Operation key = " + key);
 
         return true;
     }
