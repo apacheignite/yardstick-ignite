@@ -111,6 +111,9 @@
         <level value="DEBUG"/>
     </category>
 
+    <category name="org.apache.ignite.internal.processors.cache.distributed.dht.atomic.GridDhtAtomicCache">
+        <level value="DEBUG"/>
+    </category>
 
     <category name="org.springframework">
         <level value="WARN"/>
