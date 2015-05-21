@@ -22,23 +22,30 @@ import org.apache.ignite.yardstick.cache.model.*;
 
 import java.util.*;
 
+import static org.yardstickframework.BenchmarkUtils.*;
+
 /**
  * Ignite benchmark that performs transactional put and get operations.
  */
 public class IgnitePutGetTxBenchmark extends IgniteCacheAbstractBenchmark {
     /** {@inheritDoc} */
     @Override public boolean test(Map<Object, Object> ctx) throws Exception {
-        int key = nextRandom(0, args.range() / 2);
+        try {
+            int key = nextRandom(0, args.range() / 2);
 
-        try (Transaction tx = ignite().transactions().txStart()) {
-            Object val = cache.get(key);
+            try (Transaction tx = ignite().transactions().txStart()) {
+                Object val = cache.get(key);
 
-            if (val != null)
-                key = nextRandom(args.range() / 2, args.range());
+                if (val != null)
+                    key = nextRandom(args.range() / 2, args.range());
 
-            cache.put(key, new SampleValue(key));
+                cache.put(key, new SampleValue(key));
 
-            tx.commit();
+                tx.commit();
+            }
+        }
+        catch (Exception e) {
+            println(cfg, "Operation failed.");
         }
 
         return true;
