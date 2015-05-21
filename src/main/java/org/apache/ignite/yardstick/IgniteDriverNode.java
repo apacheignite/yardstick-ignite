@@ -56,6 +56,8 @@ public class IgniteDriverNode extends IgniteNode {
 
         CacheConfiguration ccfg = null;
 
+        c.setClientMode(true);
+
         for (CacheConfiguration cc : c.getCacheConfiguration()) {
             // Create cache only
             if (!cc.getName().equals(args.cacheName()))
