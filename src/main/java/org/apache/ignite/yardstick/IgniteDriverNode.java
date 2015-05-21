@@ -94,6 +94,8 @@ public class IgniteDriverNode extends IgniteNode {
 
             cc.setWriteBehindEnabled(args.isWriteBehind());
 
+            cc.setReadFromBackup(true);
+
             ccfg = cc;
 
             break;
