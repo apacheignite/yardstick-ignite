@@ -85,22 +85,22 @@ public abstract class IgniteAbstractBenchmark extends BenchmarkDriverAdapter {
      * @throws Exception If failed.
      */
     private void waitForNodes() throws Exception {
-        final CountDownLatch nodesStartedLatch = new CountDownLatch(1);
-
-        ignite().events().localListen(new IgnitePredicate<Event>() {
-            @Override public boolean apply(Event gridEvt) {
-                if (nodesStarted())
-                    nodesStartedLatch.countDown();
-
-                return true;
-            }
-        }, EVT_NODE_JOINED);
-
-        if (!nodesStarted()) {
-            println(cfg, "Waiting for " + (args.nodes() - 1) + " nodes to start...");
-
-            nodesStartedLatch.await();
-        }
+//        final CountDownLatch nodesStartedLatch = new CountDownLatch(1);
+//
+//        ignite().events().localListen(new IgnitePredicate<Event>() {
+//            @Override public boolean apply(Event gridEvt) {
+//                if (nodesStarted())
+//                    nodesStartedLatch.countDown();
+//
+//                return true;
+//            }
+//        }, EVT_NODE_JOINED);
+//
+//        if (!nodesStarted()) {
+//            println(cfg, "Waiting for " + (args.nodes() - 1) + " nodes to start...");
+//
+//            nodesStartedLatch.await();
+//        }
     }
 
     /**
