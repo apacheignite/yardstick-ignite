@@ -116,9 +116,9 @@ public class IgniteDriverNode extends IgniteNode {
         TcpDiscoverySpi spi = (TcpDiscoverySpi)c.getDiscoverySpi();
 
         commSpi.setSocketWriteTimeout(200);
-        spi.setAckTimeout(50);
+        spi.setAckTimeout(200);
         spi.setNetworkTimeout(5000);
-        spi.setHeartbeatFrequency(100);
+        spi.setHeartbeatFrequency(300);
 
         ignite = Ignition.start(c);
     }
