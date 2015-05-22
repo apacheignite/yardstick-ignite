@@ -54,6 +54,8 @@ public class IgniteDriverNode extends IgniteNode {
 
         assert c != null;
 
+        c.setClientMode(true);
+
         CacheConfiguration ccfg = null;
 
         for (CacheConfiguration cc : c.getCacheConfiguration()) {
