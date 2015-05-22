@@ -56,8 +56,6 @@ public class IgniteDriverNode extends IgniteNode {
 
         CacheConfiguration ccfg = null;
 
-        c.setClientMode(true);
-
         for (CacheConfiguration cc : c.getCacheConfiguration()) {
             // Create cache only
             if (!cc.getName().equals(args.cacheName()))
@@ -115,10 +113,10 @@ public class IgniteDriverNode extends IgniteNode {
 
         TcpDiscoverySpi spi = (TcpDiscoverySpi)c.getDiscoverySpi();
 
-        commSpi.setSocketWriteTimeout(200);
-        spi.setAckTimeout(50);
-        spi.setNetworkTimeout(5000);
-        spi.setHeartbeatFrequency(100);
+//        commSpi.setSocketWriteTimeout(200);
+//        spi.setAckTimeout(50);
+//        spi.setNetworkTimeout(5000);
+//        spi.setHeartbeatFrequency(100);
 
         ignite = Ignition.start(c);
     }
