@@ -18,14 +18,11 @@
 package org.apache.ignite.yardstick;
 
 import org.apache.ignite.*;
-import org.apache.ignite.cache.affinity.fair.FairAffinityFunction;
 import org.apache.ignite.cache.eviction.lru.*;
 import org.apache.ignite.configuration.*;
-import org.apache.ignite.internal.processors.cache.*;
 import org.apache.ignite.spi.communication.tcp.*;
 import org.yardstickframework.*;
 
-import static org.apache.ignite.internal.processors.cache.CacheDistributionMode.*;
 import static org.apache.ignite.cache.CacheMemoryMode.*;
 
 /**
@@ -65,10 +62,10 @@ public class IgniteDriverNode extends IgniteNode {
 
             // IgniteNode can not run in CLIENT_ONLY mode,
             // except the case when it's used inside IgniteAbstractBenchmark.
-            CacheDistributionMode distroMode = args.distributionMode() == CLIENT_ONLY && !clientMode ?
-                PARTITIONED_ONLY : args.distributionMode();
+            boolean cl = args.isClientOnly() && !args.isNearCache() && !clientMode ?
+                false : args.isClientOnly();
 
-            if (distroMode == CLIENT_ONLY)
+            if (cl)
                 c.setClientMode(true);
 
             cc.setWriteSynchronizationMode(args.syncMode());
