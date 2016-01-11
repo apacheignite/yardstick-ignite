@@ -30,8 +30,8 @@
     <version>0.1.0</version>
 
     <properties>
-        <yardstick.version>0.7.0</yardstick.version>
-        <ignite.version>1.2.0-incubating</ignite.version>
+        <yardstick.version>0.8.0</yardstick.version>
+        <ignite.version>1.5.0.final</ignite.version>
     </properties>
 
     <dependencies>

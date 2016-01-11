@@ -17,9 +17,9 @@
 
 package org.apache.ignite.yardstick.cache.store.jdbc;
 
-import org.apache.ignite.yardstick.cache.model.*;
-
-import java.util.*;
+import java.util.Map;
+import org.apache.ignite.IgniteCache;
+import org.apache.ignite.yardstick.cache.model.SampleKey;
 
 /**
  * Ignite JDBC cache store benchmark that performs get operations.
@@ -34,8 +34,13 @@ public class IgniteJdbcStoreGetTxBenchmark extends IgniteJdbcStoreAbstractBenchm
     @Override public boolean test(Map<Object, Object> ctx) throws Exception {
         int id = nextRandom(args.range());
 
-        cache.get(new SampleKey(id));
+        cache().get(new SampleKey(id));
 
         return true;
+    }
+
+    /** {@inheritDoc} */
+    @Override protected IgniteCache<Object, Object> cache() {
+        return ignite().cache("tx");
     }
 }

@@ -17,15 +17,20 @@
 
 package org.apache.ignite.yardstick;
 
-import org.apache.ignite.*;
-import org.apache.ignite.events.*;
-import org.apache.ignite.lang.*;
-import org.yardstickframework.*;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ThreadLocalRandom;
+import org.apache.ignite.Ignite;
+import org.apache.ignite.IgniteState;
+import org.apache.ignite.Ignition;
+import org.apache.ignite.events.Event;
+import org.apache.ignite.lang.IgnitePredicate;
+import org.yardstickframework.BenchmarkConfiguration;
+import org.yardstickframework.BenchmarkDriverAdapter;
+import org.yardstickframework.BenchmarkUtils;
 
-import java.util.concurrent.*;
-
-import static org.apache.ignite.events.EventType.*;
-import static org.yardstickframework.BenchmarkUtils.*;
+import static org.apache.ignite.events.EventType.EVT_NODE_JOINED;
+import static org.yardstickframework.BenchmarkUtils.jcommander;
+import static org.yardstickframework.BenchmarkUtils.println;
 
 /**
  * Abstract class for Ignite benchmarks.
@@ -35,7 +40,7 @@ public abstract class IgniteAbstractBenchmark extends BenchmarkDriverAdapter {
     protected final IgniteBenchmarkArguments args = new IgniteBenchmarkArguments();
 
     /** Node. */
-    private IgniteDriverNode node;
+    private IgniteNode node;
 
     /** {@inheritDoc} */
     @Override public void setUp(BenchmarkConfiguration cfg) throws Exception {
@@ -44,13 +49,13 @@ public abstract class IgniteAbstractBenchmark extends BenchmarkDriverAdapter {
         jcommander(cfg.commandLineArguments(), args, "<ignite-driver>");
 
         if (Ignition.state() != IgniteState.STARTED) {
-            node = new IgniteDriverNode(args.isClientOnly() && !args.isNearCache());
+            node = new IgniteNode(args.isClientOnly() && !args.isNearCache());
 
             node.start(cfg);
         }
         else
             // Support for mixed benchmarks mode.
-            node = new IgniteDriverNode(args.isClientOnly() && !args.isNearCache(), Ignition.ignite());
+            node = new IgniteNode(args.isClientOnly() && !args.isNearCache(), Ignition.ignite());
 
         waitForNodes();
     }

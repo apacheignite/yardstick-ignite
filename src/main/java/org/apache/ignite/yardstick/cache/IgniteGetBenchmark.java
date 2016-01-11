@@ -17,12 +17,13 @@
 
 package org.apache.ignite.yardstick.cache;
 
-import java.util.*;
+import java.util.Map;
+import org.apache.ignite.IgniteCache;
 
 /**
  * Ignite benchmark that performs get operations.
  */
-public class IgniteGetBenchmark extends IgniteCacheAbstractBenchmark {
+public class IgniteGetBenchmark extends IgniteCacheAbstractBenchmark<Integer, Object> {
     /** {@inheritDoc} */
     @Override public boolean test(Map<Object, Object> ctx) throws Exception {
         int key = nextRandom(args.range());
@@ -30,5 +31,10 @@ public class IgniteGetBenchmark extends IgniteCacheAbstractBenchmark {
         cache.get(key);
 
         return true;
+    }
+
+    /** {@inheritDoc} */
+    @Override protected IgniteCache<Integer, Object> cache() {
+        return ignite().cache("atomic");
     }
 }

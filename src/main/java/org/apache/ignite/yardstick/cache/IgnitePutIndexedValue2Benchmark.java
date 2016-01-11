@@ -15,28 +15,27 @@
  * limitations under the License.
  */
 
-package org.apache.ignite.yardstick.cache.streaming;
+package org.apache.ignite.yardstick.cache;
 
-import org.apache.ignite.*;
-import org.apache.ignite.yardstick.cache.*;
-import org.apache.ignite.yardstick.cache.model.*;
-
-import java.util.*;
+import java.util.Map;
+import org.apache.ignite.IgniteCache;
+import org.apache.ignite.yardstick.cache.model.Person2;
 
 /**
- * Ignite benchmark that performs put operations.
+ * Ignite benchmark that performs put operations for entity with indexed fields.
  */
-public class IgniteStreamingBenchmark extends IgniteCacheAbstractBenchmark {
+public class IgnitePutIndexedValue2Benchmark extends IgniteCacheAbstractBenchmark<Integer, Object> {
     /** {@inheritDoc} */
     @Override public boolean test(Map<Object, Object> ctx) throws Exception {
-        try (IgniteDataStreamer<Object, Object> streamer = ignite().dataStreamer(cache.getName())) {
-            for (int i = 0; i < args.batchSize(); i++) {
-                int key = nextRandom(args.range());
+        int key = nextRandom(args.range());
 
-                streamer.addData(key, new SampleValue(key));
-            }
-        }
+        cache.put(key, new Person2(key));
 
         return true;
+    }
+
+    /** {@inheritDoc} */
+    @Override protected IgniteCache<Integer, Object> cache() {
+        return ignite().cache("atomic-index");
     }
 }
