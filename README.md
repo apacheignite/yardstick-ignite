@@ -77,6 +77,46 @@ SERVER_HOSTS=localhost,localhost
 CONFIGS="-b 1 -sm PRIMARY_SYNC -dn PutBenchmark -sn IgniteNode"
 ```
 
+## Running on Amazon
+
+This repo contains all necessary scripts and properties files for a comparison Apache Ignite with other products.
+You can easy run benchmark by using [yardstick-docker](https://github.com/yardstick-benchmarks/yardstick-docker) extension, but it might have an influence on performance.
+
+For running on Amazon EC2 need to perform the following steps:
+
+* Run Amazon EC2 instances. Choose number of instances and hardware according to your requirements.
+
+The following actions need to perform on all instances:
+
+* Install Java, Maven and Git.
+* Clone this repository (on all nodes path should be the same) and perform `mvn clean package` command.
+* Change `SERVER_HOSTS` and `DRIVER_HOSTS` properties in `config/benchmark.properties` file. 
+`SERVER_HOSTS` is comma-separated list of IP addresses where servers should be started, one server per host. 
+`DRIVER_HOSTS` is comma-separated list of IP addresses where drivers should be started, one driver per host, if the 
+property is not defined then the driver will be run on localhost.
+Property file contains many useful information about benchmarks such as `list of benchmarks`, `JVM opts` and etc. More details there
+[Properties And Command Line Arguments](https://github.com/gridgain/yardstick#properties-and-command-line-arguments)
+
+* Update IP addresses in `property` section from `config/ignite-localhost-config.xml` file on actual. For example:
+
+```
+config/ignite-localhost-config.xml
+
+...
+<property name="addresses">
+  <list>
+    <value>XXX.XXX.XX.1:47500..47509</value>
+    <value>XXX.XXX.XX.2:47500..47509</value>
+    <value>XXX.XXX.XX.3:47500..47509</value>
+  </list>
+</property>
+...
+```
+
+* Perform `./bin/benchmark-run-all.sh` script. For more details about running scripts see [Running Yardstick Benchmarks](https://github.com/gridgain/yardstick#running-yardstick-benchmarks).
+* After execution the script in `result` folder will be saved to results of benchmarks. For visualisation of results can be used `bin/jfreechart-graph-gen.sh` script. 
+For more details about the script see [JFreeChart Graphs](https://github.com/gridgain/yardstick#jfreechart-graphs).
+
 ## Issues
 Use Apache Ignite Apache JIRA (https://issues.apache.org/jira/browse/IGNITE) to file bugs.
 
