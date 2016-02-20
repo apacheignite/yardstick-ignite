@@ -89,7 +89,23 @@ For running on Amazon EC2 need to perform the following steps:
 The following actions need to perform on all instances:
 
 * Install Java, Maven and Git.
-* Clone this repository (on all nodes path should be the same) and perform `mvn clean package` command.
+
+```
+For example for Ubuntu:
+
+# apt-get install java
+# apt-get install mvn
+# apt-get install git
+```
+
+* Clone this repository (on all nodes path should be the same) and build project.
+
+```
+git clone https://github.com/gridgain/yardstick-hazelcast
+
+mvn clean package
+```
+
 * Change `SERVER_HOSTS` and `DRIVER_HOSTS` properties in `config/benchmark.properties` file. 
 `SERVER_HOSTS` is comma-separated list of IP addresses where servers should be started, one server per host. 
 `DRIVER_HOSTS` is comma-separated list of IP addresses where drivers should be started, one driver per host, if the 
