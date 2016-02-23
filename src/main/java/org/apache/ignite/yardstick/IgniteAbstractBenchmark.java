@@ -24,6 +24,7 @@ import org.apache.ignite.IgniteState;
 import org.apache.ignite.Ignition;
 import org.apache.ignite.events.Event;
 import org.apache.ignite.lang.IgnitePredicate;
+import org.apache.ignite.yardstick.cache.model.SampleValue;
 import org.yardstickframework.BenchmarkConfiguration;
 import org.yardstickframework.BenchmarkDriverAdapter;
 import org.yardstickframework.BenchmarkUtils;
@@ -47,6 +48,8 @@ public abstract class IgniteAbstractBenchmark extends BenchmarkDriverAdapter {
         super.setUp(cfg);
 
         jcommander(cfg.commandLineArguments(), args, "<ignite-driver>");
+
+        SampleValue.sampleValueSize = cfg.valueSize();
 
         if (Ignition.state() != IgniteState.STARTED) {
             node = new IgniteNode(args.isClientOnly() && !args.isNearCache());
