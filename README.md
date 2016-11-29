@@ -101,7 +101,7 @@ For example for Ubuntu:
 * Clone this repository (on all nodes path should be the same) and build project.
 
 ```
-git clone https://github.com/gridgain/yardstick-hazelcast
+git clone https://github.com/gridgain/yardstick-ignite
 
 mvn clean package
 ```
