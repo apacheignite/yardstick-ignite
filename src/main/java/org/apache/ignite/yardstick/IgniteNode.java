@@ -43,6 +43,7 @@ import org.yardstickframework.BenchmarkServer;
 import org.yardstickframework.BenchmarkUtils;
 
 import static org.apache.ignite.cache.CacheMemoryMode.OFFHEAP_VALUES;
+import static org.apache.ignite.internal.IgniteNodeAttributes.ATTR_MARSHALLER;
 
 /**
  * Standalone Ignite node.
@@ -86,56 +87,64 @@ public class IgniteNode implements BenchmarkServer {
 
         assert appCtx != null;
 
-        for (CacheConfiguration cc : c.getCacheConfiguration()) {
-            // IgniteNode can not run in CLIENT_ONLY mode,
-            // except the case when it's used inside IgniteAbstractBenchmark.
-            boolean cl = args.isClientOnly() && (args.isNearCache() || clientMode);
+        CacheConfiguration[] ccfgs = c.getCacheConfiguration();
 
-            if (cl)
-                c.setClientMode(true);
+        if (ccfgs != null) {
+            for (CacheConfiguration cc : ccfgs) {
+                // IgniteNode can not run in CLIENT_ONLY mode,
+                // except the case when it's used inside IgniteAbstractBenchmark.
+                boolean cl = args.isClientOnly() && (args.isNearCache() || clientMode);
 
-            if (args.isNearCache()) {
-                NearCacheConfiguration nearCfg = new NearCacheConfiguration();
+                if (cl)
+                    c.setClientMode(true);
 
-                if (args.getNearCacheSize() != 0)
-                    nearCfg.setNearEvictionPolicy(new LruEvictionPolicy(args.getNearCacheSize()));
+                if (args.isNearCache()) {
+                    NearCacheConfiguration nearCfg = new NearCacheConfiguration();
 
-                cc.setNearConfiguration(nearCfg);
+                    if (args.getNearCacheSize() != 0)
+                        nearCfg.setNearEvictionPolicy(new LruEvictionPolicy(args.getNearCacheSize()));
+
+                    cc.setNearConfiguration(nearCfg);
+                }
+
+                cc.setWriteSynchronizationMode(args.syncMode());
+
+                if (args.orderMode() != null)
+                    cc.setAtomicWriteOrderMode(args.orderMode());
+
+                cc.setBackups(args.backups());
+
+                if (args.restTcpPort() != 0) {
+                    ConnectorConfiguration ccc = new ConnectorConfiguration();
+
+                    ccc.setPort(args.restTcpPort());
+
+                    if (args.restTcpHost() != null)
+                        ccc.setHost(args.restTcpHost());
+
+                    c.setConnectorConfiguration(ccc);
+                }
+
+                if (args.isOffHeap()) {
+                    cc.setOffHeapMaxMemory(0);
+
+                    if (args.isOffheapValues())
+                        cc.setMemoryMode(OFFHEAP_VALUES);
+                    else
+                        cc.setEvictionPolicy(new LruEvictionPolicy(50000));
+                }
+
+                cc.setReadThrough(args.isStoreEnabled());
+
+                cc.setWriteThrough(args.isStoreEnabled());
+
+                cc.setWriteBehindEnabled(args.isWriteBehind());
+
+                BenchmarkUtils.println(cfg, "Cache configured with the following parameters: " + cc);
             }
-
-            cc.setWriteSynchronizationMode(args.syncMode());
-
-            if (args.orderMode() != null)
-                cc.setAtomicWriteOrderMode(args.orderMode());
-
-            cc.setBackups(args.backups());
-
-            if (args.restTcpPort() != 0) {
-                ConnectorConfiguration ccc = new ConnectorConfiguration();
-
-                ccc.setPort(args.restTcpPort());
-
-                if (args.restTcpHost() != null)
-                    ccc.setHost(args.restTcpHost());
-
-                c.setConnectorConfiguration(ccc);
-            }
-
-            if (args.isOffHeap()) {
-                cc.setOffHeapMaxMemory(0);
-
-                if (args.isOffheapValues())
-                    cc.setMemoryMode(OFFHEAP_VALUES);
-                else
-                    cc.setEvictionPolicy(new LruEvictionPolicy(50000));
-            }
-
-            cc.setReadThrough(args.isStoreEnabled());
-
-            cc.setWriteThrough(args.isStoreEnabled());
-
-            cc.setWriteBehindEnabled(args.isWriteBehind());
         }
+        else
+            BenchmarkUtils.println(cfg, "There are no caches configured");
 
         TransactionConfiguration tc = c.getTransactionConfiguration();
 
@@ -150,6 +159,8 @@ public class IgniteNode implements BenchmarkServer {
         c.setCommunicationSpi(commSpi);
 
         ignite = IgniteSpring.start(c, appCtx);
+
+        BenchmarkUtils.println("Configured marshaller: " + ignite.cluster().localNode().attribute(ATTR_MARSHALLER));
     }
 
     /**

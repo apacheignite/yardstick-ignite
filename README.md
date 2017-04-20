@@ -30,14 +30,20 @@ The documentation below describes configuration parameters in addition to standa
 ## Provided Benchmarks
 The following benchmarks are provided:
 
-1. `GetBenchmark` - benchmarks atomic distributed cache get operation
-2. `PutBenchmark` - benchmarks atomic distributed cache put operation
-3. `PutGetBenchmark` - benchmarks atomic distributed cache put and get operations together
-4. `PutTxBenchmark` - benchmarks transactional distributed cache put operation
-5. `PutGetTxBenchmark` - benchmarks transactional distributed cache put and get operations together
-6. `SqlQueryBenchmark` - benchmarks distributed SQL query over cached data
-7. `SqlQueryJoinBenchmark` - benchmarks distributed SQL query with a Join over cached data
-8. `SqlQueryPutBenchmark` - benchmarks distributed SQL query with simultaneous cache updates
+1. `IgniteGetBenchmark` - benchmarks atomic distributed cache get operation
+2. `IgnitePutBenchmark` - benchmarks atomic distributed cache put operation
+3. `IgnitePutAllBenchmark` - benchmarks atomic distributed cache putAll operation
+4. `IgnitePutGetBenchmark` - benchmarks atomic distributed cache put and get operations together
+5. `IgnitePutGetBatchBenchmark` - benchmarks atomic distributed cache putAll and getAll operations together
+6. `IgnitePutTxBenchmark` - benchmarks transactional distributed cache put operation
+7. `IgnitePutAllTxBenchmark` - benchmarks transactional distributed cache putAll operation
+8. `IgnitePutAllSerializableTxBenchmark` - benchmarks transactional distributed cache putAll operation with serializable isolation  
+9. `IgnitePutTxImplicitBenchmark` - benchmarks implicit transaction distributed cache put operation
+10. `IgnitePutGetTxBenchmark` - benchmarks transactional distributed cache put and get operations together
+11. `IgniteGetAllPutAllTxBenchmark` - benchmarks transactional distributed cache putAll and getAll operations together
+12. `IgniteSqlQueryBenchmark` - benchmarks distributed SQL query over cached data
+13. `IgniteSqlQueryJoinBenchmark` - benchmarks distributed SQL query with a Join over cached data
+14. `IgniteSqlQueryPutBenchmark` - benchmarks distributed SQL query with simultaneous cache updates
 
 ## Writing Apache Ignite Benchmarks
 All benchmarks extend `AbstractBenchmark` class. A new benchmark should also extend this abstract class and implement `test` method. This is the method that is actually benchmarked.
@@ -80,15 +86,12 @@ CONFIGS="-b 1 -sm PRIMARY_SYNC -dn PutBenchmark -sn IgniteNode"
 ## Running on Amazon
 
 This repo contains all necessary scripts and properties files for a comparison Apache Ignite with other products.
-You can easy run benchmark by using [yardstick-docker](https://github.com/yardstick-benchmarks/yardstick-docker) extension, but it might have an influence on performance.
 
 For running on Amazon EC2 need to perform the following steps:
 
 * Run Amazon EC2 instances. Choose number of instances and hardware according to your requirements.
 
-The following actions need to perform on all instances:
-
-* Install Java, Maven and Git.
+* Install Java, Maven and Git on all instances.
 
 ```
 For example for Ubuntu:
@@ -98,7 +101,7 @@ For example for Ubuntu:
 # apt-get install git
 ```
 
-* Clone this repository (on all nodes path should be the same) and build project.
+* Clone this repository and build project on one of amazon instances. Yardstick will copy the binary on all nodes self.
 
 ```
 git clone https://github.com/gridgain/yardstick-ignite
@@ -129,7 +132,10 @@ config/ignite-localhost-config.xml
 ...
 ```
 
-* Perform `./bin/benchmark-run-all.sh` script. For more details about running scripts see [Running Yardstick Benchmarks](https://github.com/gridgain/yardstick#running-yardstick-benchmarks).
+* This repository contains two main set benchmark for sync and async backups (see more details about it [there](https://apacheignite.readme.io/docs/primary-and-backup-copies#section-synchronous-and-asynchronous-backups)). 
+ By default used set of benchmark for async backups. If you want to run benchmarks for sync backup then need to use 
+ `benchmark-sync.properties` file. Perform `./bin/benchmark-run-all.sh` script for async backups or `./bin/benchmark-run-all.sh ./config/benchmark-sync.properties` for sync backups. 
+For more details about running scripts see [Running Yardstick Benchmarks](https://github.com/gridgain/yardstick#running-yardstick-benchmarks).
 * After execution the script in `result` folder will be saved to results of benchmarks. For visualisation of results can be used `bin/jfreechart-graph-gen.sh` script. 
 For more details about the script see [JFreeChart Graphs](https://github.com/gridgain/yardstick#jfreechart-graphs).
 
