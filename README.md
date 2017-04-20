@@ -101,7 +101,7 @@ For example for Ubuntu:
 # apt-get install git
 ```
 
-* Clone this repository and build project on one of amazon instances. Yardstick will copy the binary on all nodes self.
+* Clone this repository and build project on one of the Amazon instances. Yardstick will copy all the built binaries on all nodes automatically.
 
 ```
 git clone https://github.com/gridgain/yardstick-ignite
@@ -116,7 +116,8 @@ property is not defined then the driver will be run on localhost.
 Property file contains many useful information about benchmarks such as `list of benchmarks`, `JVM opts` and etc. More details there
 [Properties And Command Line Arguments](https://github.com/gridgain/yardstick#properties-and-command-line-arguments)
 
-* Update IP addresses in `property` section from `config/ignite-localhost-config.xml` file on actual. For example:
+* Update IP addresses in `property` section from 
+`config/ignite-localhost-config.xml` file on actual. For example:
 
 ```
 config/ignite-localhost-config.xml
