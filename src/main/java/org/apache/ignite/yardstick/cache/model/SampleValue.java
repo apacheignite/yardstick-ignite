@@ -35,6 +35,9 @@ public class SampleValue implements Externalizable, Binarylizable {
     @QuerySqlField
     private int id;
 
+    public static int sampleValueSize=1001;
+    private byte[] value = new byte[sampleValueSize];
+
     /** */
     public SampleValue() {
         // No-op.
@@ -61,24 +64,43 @@ public class SampleValue implements Externalizable, Binarylizable {
         return id;
     }
 
+    /**
+     * @param id value.
+     */
+    public void setValue(byte[] value) {
+        this.value = value;
+    }
+
+    /**
+     * @return value.
+     */
+    public byte[] getValue() {
+        return value;
+    }
+
+
     /** {@inheritDoc} */
     @Override public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
         id = in.readInt();
+        in.read(value);
     }
 
     /** {@inheritDoc} */
     @Override public void writeExternal(ObjectOutput out) throws IOException {
         out.writeInt(id);
+        out.write(value);
     }
 
     /** {@inheritDoc} */
     @Override public void writeBinary(BinaryWriter writer) throws BinaryObjectException {
         writer.writeInt("id", id);
+        writer.writeByteArray("value", value);
     }
 
     /** {@inheritDoc} */
     @Override public void readBinary(BinaryReader reader) throws BinaryObjectException {
         id = reader.readInt("id");
+        value = reader.readByteArray("value");
     }
 
     /** {@inheritDoc} */
