@@ -1,6 +1,0 @@
-*.log
-.idea/
-*.iml
-*.jar
-target/*
-bin/*
