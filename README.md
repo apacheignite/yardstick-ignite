@@ -16,6 +16,6 @@
 -->
 
 # Yardstick Apache Ignite Benchmarks
-Yardstick Apache Ignite is a set of <a href="http://ignite.incubator.apache.org/">Ignite Grid</a> benchmarks written on top of Yardstick framework.
+Yardstick Apache Ignite is a set of <a href="https://ignite.apache.org">Ignite Grid</a> benchmarks written on top of Yardstick framework.
 
 ##### Apache Ignite v2.0 and above delivers with benchmarks. You can download it here: https://ignite.apache.org/download.cgi#binaries
